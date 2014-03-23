@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>infernozeus.neulion.spark</groupId>
+  <artifactId>NeulionKeyServer</artifactId>
+  <versioning>
+    <versions>
+      <version>1.0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20140323002536</lastUpdated>
+  </versioning>
+</metadata>
