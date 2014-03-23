@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
+    <groupId>infernozeus</groupId>
+    <artifactId>github-maven-repo</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <build>
+        <!--<pluginManagement>-->
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4.1</version>
+                    <executions>
+                        <execution>
+                            <id>auto-clean</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.github</groupId>
+                    <artifactId>site-maven-plugin</artifactId>
+                    <version>0.9</version>
+                    <configuration>
+                        <!-- git commit message -->
+                        <message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+                        <!-- matches distribution management repository url above -->
+                        <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                        <!-- remote branch name -->
+                        <branch>refs/heads/master</branch>
+                        <includes><include>**/*</include></includes>
+                        <!-- github repo name -->
+                        <repositoryName>mvn-repo</repositoryName>
+                        <!-- github username  -->
+                        <repositoryOwner>InfernoZeus</repositoryOwner>
+                        <merge>true</merge>
+                    </configuration>
+                    <executions>
+                        <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                        <execution>
+                            <goals>
+                                <goal>site</goal>
+                            </goals>
+                            <phase>deploy</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        <!--</pluginManagement>-->
+    </build>
+    <distributionManagement>
+        <repository>
+            <id>repo</id>
+            <url>file://${project.build.directory}/mvn-repo/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot-repo</id>
+            <url>file://${project.build.directory}/mvn-repo/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <properties>
+        <!-- github server corresponds to entry in ~/.m2/settings.xml -->
+        <github.global.server>github</github.global.server>
+    </properties>
+</project>
