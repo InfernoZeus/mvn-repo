@@ -1,9 +1,6 @@
 mvn-repo
 ========
 
-mvn-repo
-========
-
 To use this Maven repository, add the following profile to your settings.xml:
 
 ```
